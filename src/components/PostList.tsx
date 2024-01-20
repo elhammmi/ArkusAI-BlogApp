@@ -8,6 +8,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { getPostList } from "../storage/blogStorageActions";
 import { PostInterface } from "../types";
+import { Link } from "react-router-dom";
 
 const PostList = () => {
   const postListDiv: React.RefObject<HTMLInputElement> = useRef(null);
@@ -39,25 +40,32 @@ const PostList = () => {
         {/* Display current page posts */}
 
         {currentData.map((item: PostInterface) => (
-          <Card key={item.id} className="post-card">
-            {item.imgUrl && (
-              <CardMedia
-                component="img"
-                alt="green iguana"
-                height="auto"
-                image={item.imgUrl}
-              />
-            )}
+          <Link
+            key={item.id}
+            to={`/post/${item.id}`}
+            className="post-link"
+            style={{ textDecoration: "none" }}
+          >
+            <Card key={item.id} className="post-card">
+              {item.imgUrl && (
+                <CardMedia
+                  component="img"
+                  alt="green iguana"
+                  height="auto"
+                  image={item.imgUrl}
+                />
+              )}
 
-            <CardContent>
-              <Typography variant="h5" component="div">
-                {item.title}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {item.content}
-              </Typography>
-            </CardContent>
-          </Card>
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  {item.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {item.content}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </div>
       {/* Pagination component */}
