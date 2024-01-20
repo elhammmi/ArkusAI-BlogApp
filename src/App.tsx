@@ -1,8 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useEffect } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { seedData } from "./storage/blogStorageActions";
 function App() {
+  useEffect(() => {
+    seedData();
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
