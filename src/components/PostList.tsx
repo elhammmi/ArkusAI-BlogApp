@@ -5,42 +5,50 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getPostList } from "../storage/blogStorageActions";
+import { PostInterface } from "../types";
 
 const PostList = () => {
+  const postListDiv: React.RefObject<HTMLInputElement> = useRef(null);
+  const postsPerPage = 8;
   const data = getPostList();
+  const [currentData, setCurrentData] = useState<PostInterface[]>(
+    data.slice(postsPerPage)
+  );
   // Pagination settings
-  const blogPosts = 200;
-  const postsPerPage = 10;
-  const pageCount = Math.ceil(blogPosts / postsPerPage);
+  let [page, setPage] = useState(1);
 
-  // State for current page
-  const [currentPage, setCurrentPage] = useState(1);
+  const pageCount = Math.ceil(data.length / postsPerPage);
 
-  // Handle page change
-  const handlePageChange = (value: any) => {
-    setCurrentPage(value);
+  useEffect(() => {
+    const begin = (page - 1) * postsPerPage;
+    const end = begin + postsPerPage;
+    setCurrentData(data.slice(begin, end));
+  }, [page, data]);
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value);
+    postListDiv.current?.scrollIntoView({ behavior: "smooth" });
   };
-
-  // Display posts for the current page
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  //const currentPosts = blogPosts.slice(indexOfFirstPost, indexOfLastPost);
-
   return (
     <div>
-      <div className="post-list-container">
+      <div ref={postListDiv} className="post-list-container">
         {/* Display current page posts */}
 
-        {data.map((item) => (
+        {currentData.map((item: PostInterface) => (
           <Card key={item.id} className="post-card">
-            <CardMedia
-              component="img"
-              alt="green iguana"
-              height="auto"
-              image={item.imgUrl}
-            />
+            {item.imgUrl && (
+              <CardMedia
+                component="img"
+                alt="green iguana"
+                height="auto"
+                image={item.imgUrl}
+              />
+            )}
+
             <CardContent>
               <Typography variant="h5" component="div">
                 {item.title}
@@ -55,7 +63,7 @@ const PostList = () => {
       {/* Pagination component */}
       <Pagination
         count={pageCount}
-        page={currentPage}
+        page={page}
         onChange={handlePageChange}
         color="primary"
         size="large"
