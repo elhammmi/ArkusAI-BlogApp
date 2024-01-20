@@ -3,6 +3,7 @@ import { getItem, setItem } from "./localStorageActions";
 import data from "./data";
 
 const key: string = "BlogList";
+
 export const getPostList = (): PostInterface[] => {
   let list = getItem<PostInterface[]>(key);
   if (!list) {
