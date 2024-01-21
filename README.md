@@ -1,7 +1,7 @@
 # Simple Blog
 
 This project was implemented by using TypeScript, React.js, and Material UI.
-This project was used moment.js libraray for formatting date easily. The browser `localStorage` was used as a data storage.
+This project used Moment.js library for formatting date easily. The browser `localStorage` was used as a data storage.
 
 ## Available Scripts
 
