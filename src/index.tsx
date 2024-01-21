@@ -17,7 +17,7 @@ root.render(
     <Routes>
       <Route path="/" element={<PostList />} />
       <Route path="/post/:id" element={<PostDetail />} />
-      <Route path="/edit/:id?" element={<PostAddOrEdit />} />
+      <Route path="/post/edit/:id?" element={<PostAddOrEdit />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   </BrowserRouter>

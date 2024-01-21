@@ -1,5 +1,3 @@
-import { PostInterface } from "../types";
-
 const data: any[] = [
   {
     id: 1,

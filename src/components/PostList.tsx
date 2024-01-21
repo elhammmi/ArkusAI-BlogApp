@@ -10,7 +10,6 @@ import { useEffect, useRef, useState } from "react";
 import { getPostList } from "../storage/blogStorageActions";
 import { PostInterface } from "../types";
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
@@ -47,7 +46,7 @@ const PostList = () => {
     <>
       <Grid container ref={postListDiv}>
         <Grid item md={4}>
-          <Link to={`/edit/`}>
+          <Link to={`/post/edit/`}>
             <Fab
               color="success"
               variant="extended"
@@ -66,7 +65,7 @@ const PostList = () => {
           </Link>
         </Grid>
         <Grid item sm={12} md={12} lg={12}>
-          <h1>Latest Posts</h1>
+          <h1 style={{ textAlign: "center" }}>Latest Posts</h1>
         </Grid>
 
         {currentData.map((post: PostInterface) => (
