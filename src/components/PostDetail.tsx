@@ -21,7 +21,7 @@ const PostDetail = () => {
   }
 
   const handleEdit = () => {
-    navigate(`/edit/${post.id}`);
+    navigate(`/post/edit/${post.id}`);
   };
 
   const handleDelete = () => {

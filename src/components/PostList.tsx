@@ -47,7 +47,7 @@ const PostList = () => {
     <>
       <Grid container ref={postListDiv}>
         <Grid item md={4}>
-          <Link to={`/edit/`}>
+          <Link to={`/post/edit/`}>
             <Fab
               color="success"
               variant="extended"
