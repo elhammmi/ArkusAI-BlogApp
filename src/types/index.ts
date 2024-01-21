@@ -1,7 +1,8 @@
 export interface PostInterface {
-    id: number;
-    title: string;
-    content: string;
-    createdAt: Date;
-    imgUrl: string;
-  }
+  id: number;
+  title: string;
+  content: string;
+  createdAt: Date;
+  imgUrl: string;
+  updatedAt?: Date;
+}

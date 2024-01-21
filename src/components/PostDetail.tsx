@@ -4,12 +4,15 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import CardMedia from "@mui/material/CardMedia";
-import { getPost } from "../storage/blogStorageActions";
+import { deletePost, getPost } from "../storage/blogStorageActions";
 import { useParams } from "react-router";
 import PageNotFound from "./PageNotFound";
 import ErrorPage from "./ErrorPage";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
+
 const PostDetail = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   if (!id || isNaN(parseInt(id))) return <ErrorPage />;
   const post = getPost(parseInt(id));
@@ -17,6 +20,14 @@ const PostDetail = () => {
     return <PageNotFound />;
   }
 
+  const handleEdit = () => {
+    navigate(`/edit/${post.id}`);
+  };
+
+  const handleDelete = () => {
+    deletePost(post.id);
+    navigate("/");
+  };
   return (
     <>
       <Card>
@@ -40,12 +51,46 @@ const PostDetail = () => {
           </Typography>
 
           <Divider />
-          <Typography variant="body1">{post.content}</Typography>
+          <Typography
+            sx={(theme) => ({
+              mt: 2,
+              pl: 0.5,
+              pr: 1,
+              mb: 2,
+            })}
+            variant="body1"
+          >
+            {post.content}
+          </Typography>
 
           <Divider />
 
-          <Button variant="contained" color="primary">
-            Edit Post
+          <Button
+            sx={(theme) => ({
+              mt: 2,
+              py: 0.4,
+              pl: 0.5,
+              pr: 1,
+              mr: 1,
+            })}
+            variant="contained"
+            color="primary"
+            onClick={handleEdit}
+          >
+            Edit
+          </Button>
+          <Button
+            sx={(theme) => ({
+              mt: 2,
+              py: 0.4,
+              pl: 0.5,
+              pr: 1,
+            })}
+            variant="contained"
+            color="error"
+            onClick={handleDelete}
+          >
+            Delete
           </Button>
         </CardContent>
       </Card>
