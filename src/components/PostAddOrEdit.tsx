@@ -71,7 +71,7 @@ const PostAddOrEdit = () => {
       } else {
         editPost(postData);
       }
-      navigate("/");
+      navigate(`/post/${postData.id}`);
     }
   };
 
