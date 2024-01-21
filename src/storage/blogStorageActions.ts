@@ -12,6 +12,11 @@ export const getPostList = (): PostInterface[] => {
   return list;
 };
 
+export const getPost = (postId: number): PostInterface | undefined => {
+  const list = getPostList();
+  const post = list.find((item) => item.id === postId);
+  return post;
+};
 export const addPost = (post: PostInterface) => {
   let list = getPostList();
   list = [...list, post];
