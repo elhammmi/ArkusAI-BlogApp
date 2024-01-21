@@ -4,15 +4,20 @@ import {
   CardContent,
   CardMedia,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { getPostList } from "../storage/blogStorageActions";
 import { PostInterface } from "../types";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { Container } from "@mui/system";
+import Grid from "@mui/material/Grid";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
 
 const PostList = () => {
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   const postListDiv: React.RefObject<HTMLInputElement> = useRef(null);
   const postsPerPage = 8;
 
@@ -39,53 +44,73 @@ const PostList = () => {
     postListDiv.current?.scrollIntoView({ behavior: "smooth" });
   };
   return (
-    <div>
-      <Container>
-        <Button variant="contained" color="success">
-          New post
-        </Button>
-        <div ref={postListDiv} className="post-list-container">
-          {currentData.map((item: PostInterface) => (
+    <>
+      <Grid container ref={postListDiv}>
+        <Grid item md={4}>
+          <Link to={`/edit/`}>
+            <Fab
+              color="success"
+              variant="extended"
+              aria-label="add"
+              style={{
+                position: "fixed",
+                bottom: 0,
+                right: 0,
+                zIndex: 2000,
+                margin: 10,
+              }}
+            >
+              <AddIcon />
+              {!isMobile && <span>Add post</span>}
+            </Fab>
+          </Link>
+        </Grid>
+        <Grid item sm={12} md={12} lg={12}>
+          <h1>Latest Posts</h1>
+        </Grid>
+
+        {currentData.map((post: PostInterface) => (
+          <Grid key={post.id} item sm={12} md={4} lg={4}>
             <Link
-              key={item.id}
-              to={`/post/${item.id}`}
+              key={post.id}
+              to={`/post/${post.id}`}
               className="post-link"
               style={{ textDecoration: "none" }}
             >
-              <Card key={item.id} className="post-card">
-                {item.imgUrl && (
+              <Card key={post.id} className="post-card">
+                {post.imgUrl && (
                   <CardMedia
                     component="img"
                     alt="green iguana"
                     height="auto"
-                    image={item.imgUrl}
+                    image={post.imgUrl}
                   />
                 )}
 
                 <CardContent>
                   <Typography variant="h5" component="div">
-                    {item.title}
+                    {post.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.content}
+                    {post.content}
                   </Typography>
                 </CardContent>
               </Card>
             </Link>
-          ))}
-        </div>
-        <Pagination
-          count={pageCount}
-          page={page}
-          onChange={handlePageChange}
-          color="primary"
-          size="large"
-          showFirstButton
-          showLastButton
-          className="pagination"
-        />
-      </Container>
-    </div>
+          </Grid>
+        ))}
+      </Grid>
+      <Pagination
+        count={pageCount}
+        page={page}
+        onChange={handlePageChange}
+        color="primary"
+        size="large"
+        showFirstButton
+        showLastButton
+        className="pagination"
+      />
+    </>
   );
 };
 
