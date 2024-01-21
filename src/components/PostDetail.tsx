@@ -9,7 +9,7 @@ import { useParams } from "react-router";
 import PageNotFound from "./PageNotFound";
 import ErrorPage from "./ErrorPage";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const PostDetail = () => {
   const navigate = useNavigate();
@@ -85,6 +85,7 @@ const PostDetail = () => {
               py: 0.4,
               pl: 0.5,
               pr: 1,
+              mr: 1,
             })}
             variant="contained"
             color="error"
@@ -92,6 +93,21 @@ const PostDetail = () => {
           >
             Delete
           </Button>
+          <Link to="/">
+            <Button
+              sx={(theme) => ({
+                mt: 2,
+                py: 0.4,
+                pl: 0.5,
+                pr: 1,
+              })}
+              variant="contained"
+              color="primary"
+              type="button"
+            >
+              Go to posts
+            </Button>
+          </Link>
         </CardContent>
       </Card>
     </>

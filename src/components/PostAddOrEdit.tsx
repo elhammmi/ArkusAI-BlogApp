@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router";
 import { addPost, editPost, getPost } from "../storage/blogStorageActions";
 import { PostInterface } from "../types";
 import ErrorPage from "./ErrorPage";
+import { Link } from "react-router-dom";
 
 const PostAddOrEdit = () => {
   const navigate = useNavigate();
@@ -112,9 +113,56 @@ const PostAddOrEdit = () => {
               helperText={errors.imgUrl}
               onChange={handleChange}
             />
-            <Button variant="contained" color="primary" type="submit">
+            <Button
+              variant="contained"
+              color="success"
+              type="submit"
+              sx={(theme) => ({
+                mt: 2,
+                py: 0.4,
+                pl: 0.5,
+                pr: 1,
+                mr: 1,
+              })}
+            >
               Submit
             </Button>
+            {postData.id !== 0 && (
+              <Link to={`/post/${id}`}>
+                <Button
+                  sx={(theme) => ({
+                    mt: 2,
+                    py: 0.4,
+                    pl: 0.5,
+                    pr: 1,
+                    mr: 1,
+                  })}
+                  variant="contained"
+                  color="primary"
+                  type="button"
+                >
+                  Back
+                </Button>
+              </Link>
+            )}
+            {postData.id === 0 && (
+              <Link to="/">
+                <Button
+                  sx={(theme) => ({
+                    mt: 2,
+                    py: 0.4,
+                    pl: 0.5,
+                    pr: 1,
+                    mr: 1,
+                  })}
+                  variant="contained"
+                  color="primary"
+                  type="button"
+                >
+                  Back
+                </Button>
+              </Link>
+            )}
           </form>
         </Container>
       ) : (
