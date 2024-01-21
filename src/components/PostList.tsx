@@ -13,20 +13,22 @@ import { Link } from "react-router-dom";
 const PostList = () => {
   const postListDiv: React.RefObject<HTMLInputElement> = useRef(null);
   const postsPerPage = 8;
-  const data = getPostList();
-  const [currentData, setCurrentData] = useState<PostInterface[]>(
-    data.slice(postsPerPage)
-  );
-  // Pagination settings
-  let [page, setPage] = useState(1);
 
-  const pageCount = Math.ceil(data.length / postsPerPage);
+  const [currentData, setCurrentData] = useState<PostInterface[]>([]);
+
+  // Pagination settings
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
+    const data = getPostList();
     const begin = (page - 1) * postsPerPage;
+    setPageCount(Math.ceil(data.length / postsPerPage));
     const end = begin + postsPerPage;
+    if (!data || data.length === 0) return;
     setCurrentData(data.slice(begin, end));
-  }, [page, data]);
+  }, [page]);
+
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     value: number
