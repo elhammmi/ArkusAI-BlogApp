@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 
 seedData();
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Routes>
       <Route path="/" element={<PostList />} />
       <Route path="/post/:id" element={<PostDetail />} />
