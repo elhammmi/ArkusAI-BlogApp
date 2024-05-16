@@ -19,13 +19,14 @@ code {
   justify-content: space-around;
   margin: 50px;
 }
-.post-card {
+.post-card:not(:last-child) {
   width: auto;
-  margin: 10px;
+  
 }
 
 .pagination {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
